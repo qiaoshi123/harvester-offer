@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+            -webkit-user-select: none;
+        }
+        ul,li{
+            list-style: none;
+        }
+        #contentGroup{
+            width: 1000px;
+            margin: 10px auto;
+        }
+        #contentGroup div{
+            width: 1000px;
+            height: 1400px;
+            margin-top: 10px;
+            font-size: 100px;
+        }
+        #contentGroup div:nth-child(3n+1){
+            background-color: red;
+        }
+        #contentGroup div:nth-child(3n+2){
+            background-color: purple;
+        }
+        #contentGroup div:nth-child(3n+3){
+            background-color: green;
+        }
+        #tab{
+            position: fixed;
+            bottom: 200px;
+            left: 30px;
+            display: none;
+        }
+        #tab li{
+            width: 20px;
+            height: 20px;
+            padding: 5px;
+            margin: 5px;
+            line-height: 20px;
+            text-align:center;
+            border-bottom: 1px dashed green;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+<ul id="tab">
+    <li>1F</li>
+    <li>2F</li>
+    <li>3F</li>
+    <li>4F</li>
+    <li>5F</li>
+    <li>6F</li>
+</ul>
+<div id="contentGroup">
+    <div class="head">首页</div>
+    <div class="content">一楼：服饰</div>
+    <div class="content">二楼: 首饰</div>
+    <div class="content">三楼：小吃</div>
+    <div class="content">四楼：服务</div>
+    <div class="content">五楼：品牌</div>
+    <div class="content">六楼：饰品</div>
+</div>
+<script type="text/javascript" src="utils.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    var oTab=document.getElementById("tab");
+    var oLis=oTab.getElementsByTagName("li");
+    var oDiv=document.getElementsByClassName("content");
+    var timer=null;
+function move(curImg){
+    window.clearInterval(timer);
+    var curTop=utils.offset(curImg).top;
+    var winScroll=utils.win("scrollTop");
+    var speed=(curTop-winScroll)/100;
+    timer=window.setInterval(function(){
+        var curWinT=utils.win("scrollTop");
+        if(curWinT+Math.abs(speed)>=curTop-100&&curWinT-Math.abs(speed)<=curTop-100){
+            window.clearInterval(timer);
+            utils.win("scrollTop",curTop-100);
+            return;
+        }
+        utils.win("scrollTop",curWinT+speed);
+    },5)
+}
+
+    for(var i=0;i<oLis.length;i++){
+        var cur=oLis[i];
+        cur.i=i;
+        cur.onclick=function(){
+            for(var k=0;k<oLis.length;k++){
+                oLis[k].flag=false;
+            }
+            this.flag=true;
+            move(oDiv[this.i])
+        };
+        cur.onmouseover=function(){
+            this.style.background="red";
+            this.style.color="white"
+        };
+        cur.onmouseout=function(){
+          if(this.flag){
+              this.style.background="red";
+              this.style.color="white"
+          }else{
+              this.style.background="";
+              this.style.color=""
+          }
+
+        }
+    }
+
+    function winScroll(){
+        var firstTop=utils.offset(oDiv[0]).top;
+        var a=utils.win("scrollTop");
+        var b=a+utils.win("clientHeight");
+        if(firstTop<b){
+            oTab.style.display="block";
+            oLis[0].style.background="red";
+            oLis[0].style.color="white"
+        }else{
+            oTab.style.display="none";
+        }
+        for(var i=0;i<oDiv.length;i++){
+            var cur=oDiv[i];
+            var curDivT=utils.offset(cur).top;
+            if(curDivT-100<=a){
+                for(var k=0;k<oLis.length;k++){
+                    oLis[k].style.background="";
+                    oLis[k].style.color="black";
+                }
+                oLis[i].style.background="red";
+                oLis[i].style.color="white";
+            }
+        }
+    }
+window.onscroll=winScroll;
+</script>
+</body>
+</html>

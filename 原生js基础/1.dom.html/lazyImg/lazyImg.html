@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{
+            display: block;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 30px;
+        }
+        #wrap{
+            height: 1500px;
+            overflow: auto;
+
+        }
+        #content{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="content" >
+        <img class="lazy"  src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201902/23/590ad64db730ce4000ef3f5954c2953d.jpeg?imageView2/2/w/480/q/75" >
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201811/01/d90e568801206bad73507ec979c2367c.jpeg?imageView2/2/w/480/q/75" title="1231" alt="loading">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201902/21/518fa11ec8e9f0269fa534050126a525.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201811/28/0fd36611748ed9d4642b039cfade3304.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201901/16/149e798393d74954d656d4c14cf74d23.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201809/28/b23afa561927c1c098a721f90c7851fd.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201901/16/ae479211441a8a28f290afcd029c7a67.png?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201812/19/a0a118c0f93975371faeb392d3bba000.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201811/05/24207d9e26ff86ddb75f22d71561d1be.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201810/24/0b5d953e884cf8b42b7815856f5cd172.png?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201902/16/6ee580ff995dd734e4dbde9d16bfd6e4.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201902/18/fcf50b71b99ae190111623356e52ddc2.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201810/30/5d2e4a2483cfbb5eccd87a07f312dacb.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201903/01/bed587b3d91640d7b29327b68d47b28b.jpeg?imageView2/2/w/480/q/75" alt="">
+        <img class="lazy" src="https://ccj.chuchutong.com/img/pImg.png" data-src="https://image-shop.chuchutong.com/culiu.cdn/image/201902/18/79c9af0b8e114ce21b69adde9adc3a0f.jpeg?imageView2/2/w/480/q/75" alt="">
+        </div>
+    </div>
+</body>
+    <script>
+        /**
+         *
+        // 思路
+        //1.获取滚动窗口的clientHeight
+        //2.获取图片元素相对于文档顶部的距离 offsetTop
+        //3.获取scrollTop 滚动条滚动的距离
+        //当clientHeight + scrollTop >=offsetTop 表示图片元素进入可是窗口，这时就去加载
+        var ndWrap = document.querySelector("#wrap");
+        var wrapClientHeight = ndWrap.clientHeight; //可视窗口高度
+
+        var ndContent = document.querySelector("#content");
+        var imgList = document.querySelectorAll('.lazy');
+        imgList = [].slice.call(imgList,0);
+        //处理首屏
+        for(let i = 0 ; i < imgList.length;i++){
+            let cur = imgList[i];
+            let oT = cur.offsetTop;
+            if(oT < wrapClientHeight){
+                let src = cur.getAttribute('data-src');
+                cur.src =src;
+                cur.setAttribute('load',1);
+            }
+        }
+        //处理滚屏,节流
+        var timer;
+        ndWrap.addEventListener('scroll',function () {
+             if(timer){
+                 clearTimeout(timer);
+                 timer = null;
+             }
+             timer = setTimeout(function () {
+                for(let i = 0 ; i < imgList.length;i++){
+                    let cur = imgList[i];
+                    if(cur.getAttribute('load') == 1){
+                        continue;
+                    }
+                    let oT = cur.offsetTop;
+                    var sT = ndWrap.scrollTop;
+                    if(oT < wrapClientHeight +sT ){
+                        let src = cur.getAttribute('data-src');
+                        cur.src =src;
+                        cur.setAttribute('load',1);
+                    }
+                }
+                clearTimeout(timer);
+                timer = null;
+            },500)
+        })
+
+        **/
+        /**
+         * 思路2
+         * 通过获取元素的getBoundingClientRect属性的top值和页面的clientHeight进行对比，如果top值小于clientHeight，
+         * 则说明元素出现在可视区域了。BoundingClientRect是获取某个元素相对于视窗的位置集合，
+         * 注意bottom和right和我们平时的right和bottom不一样，bottom 是距顶部的距离，right是距离左边框距离。 
+         */
+
+        var ndWrap = document.querySelector("#wrap");
+        var wrapClientHeight = ndWrap.clientHeight; //可视窗口高度
+
+        var ndContent = document.querySelector("#content");
+        var imgList = document.querySelectorAll('.lazy');
+        imgList = [].slice.call(imgList,0);
+        for(let i = 0 ; i < imgList.length;i++){
+            let cur = imgList[i];
+            let rect = cur.getBoundingClientRect()
+            if(rect.top < wrapClientHeight){
+                let src = cur.getAttribute('data-src');
+                cur.src =src;
+                cur.setAttribute('load',1);
+            }
+        }
+
+        var timer;
+        ndWrap.addEventListener('scroll',function () {
+            if(timer){
+                clearTimeout(timer);
+                timer = null;
+            }
+            timer = setTimeout(function () {
+                for(let i = 0 ; i < imgList.length;i++){
+                    let cur = imgList[i];
+                    if(cur.getAttribute('load') == 1){
+                        continue;
+                    }
+                    let rect = cur.getBoundingClientRect();
+                    if(rect.top < wrapClientHeight){
+                        let src = cur.getAttribute('data-src');
+                        cur.src =src;
+                        cur.setAttribute('load',1);
+                    }
+                }
+                clearTimeout(timer);
+                timer = null;
+            },500)
+        })
+
+
+
+
+    </script>
+</html>

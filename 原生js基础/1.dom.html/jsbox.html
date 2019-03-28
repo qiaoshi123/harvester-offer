@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js盒子属性</title>
+    <style>
+        #box{
+            position: relative;
+            overflow: hidden;
+            border: 20px solid blue;
+        }
+        #inner1{
+            width: 100px;
+            height: 100px;
+            border: 10px solid red;
+            background: #44bb00;
+            padding: 20px;
+            margin-left: 100px;
+            margin-top: 100px;
+        }
+
+        #inner2{
+            width: 400px;height: 400px;background: red;
+            border: 20px solid yellow;
+            padding: 40px;
+            margin-left: 100px;
+            margin-top: 100px;
+            /*overflow: auto;*/
+        }
+    </style>
+</head>
+<body>
+    <div id="box" >
+        <div id="inner1"></div>
+    </div>
+
+    <div id="inner2" >
+        <div id="inner3" style="border: 1px solid #000000;width: 100px;height: 800px;"></div>
+    </div>
+</body>
+<script src="2.jsbox.js"></script>
+</html>
