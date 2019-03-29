@@ -146,45 +146,26 @@ var str = 'qwer';
 console.log(str.split());   //["qwer"] 不传的话默认使用,分隔  与数组join对应，join不传默认也是，拼接
 console.log(str.split('=')) //["qwer"]
 console.log(str.split(""));//[ 'q', 'w', 'e', 'r' ]
-
 console.log('------------------------------')
-function insert(ary,num) {
-    if(ary.length == 1){
-        if(ary[0]>num){
-            ary.unshift(num)
-            console.log(ary)
-            return ary;
-        }else{
-            ary.push(num);
-            return ary;
-        }
-    }
-    let m = Math.ceil(ary.length/2);//2
-    let left = ary.slice(0,m);//[1,2]
-    let right = ary.slice(m,ary.length);//[4]
-    if(left[left.length-1]>num){
-        return insert(left,num).concat(right)
-    }else{
-        return left.concat(insert(right,num))
-    }
-}
-function insert(ary,num) {
-    if(ary.length == 1){
-        if(ary[0]>num){
-            ary.unshift(num);
-        }else{
-            ary.push(num);
-        }
-        return ary;
-    }
-    let m = Math.floor(ary.length/2);
-    let l = ary.slice(0,m);
-    let r = ary.slice(m);
-    if(l[l.length-1]>num){
-        return insert(l,num).concat(r)
-    }else{
-        return l.concat(insert(r,num))
-    }
 
+function get(str,t) {
+    let ary = str.split('abc');
+    let n  = ary.length - 1;
+    let iAry = [];
+    ary.reduce((prev,next,i,)=>{
+        if(i ==0){
+            iAry.push(prev+next.length);
+            return prev + next.length;
+        }
+        if(i == ary.length-1){
+            return;
+        }
+        iAry.push( prev+t.length+next.length);
+        return prev+t.length+next.length;
+
+    },0)
+    return {n,iAry}
 }
-console.log(insert([1, 2, 34,48,68], 34));
+
+var a = 'abcaaaaaabcabcabcabbbabcb'
+console.log(get(a, 'abc'));
