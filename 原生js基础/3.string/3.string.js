@@ -167,5 +167,19 @@ function get(str,t) {
     return {n,iAry}
 }
 
+
+function get(str,t) {
+    let reg = new RegExp(t,'g');
+    let i = 0;
+    let iAry = [];
+    str.replace(reg,function (...args) {
+        i++;
+        iAry.push(args[1])
+    })
+
+
+return {i,iAry}
+}
+
 var a = 'abcaaaaaabcabcabcabbbabcb'
 console.log(get(a, 'abc'));
