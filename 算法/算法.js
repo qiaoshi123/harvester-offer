@@ -2,7 +2,18 @@
 /**
  *冒泡排序
  */
+function switchStr(str) {
+    let arr = str.split('');
+    return arr.reduce((prev,next,index,origin)=>{
+        if(prev.slice(prev.length-1) == next){
+            return prev;
+        }else{
+            return prev + next;
+        }
 
+
+    },'')
+}
 //比较相邻的两个数的大小，满足条件更换位置。
 //第一个for循环代表轮数
 //第二个for表示每一轮比较多少次
