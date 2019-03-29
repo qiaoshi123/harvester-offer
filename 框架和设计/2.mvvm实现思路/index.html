@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--双向数据绑定，靠的是表单-->
+    <!--<input type="text" v-model="message">-->
+    <ul>
+        <li v-for="(item,i) in messages">{{item}}</li>
+    </ul>
+    <div>{{names.text}}</div>
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    //vue中实现双向绑定：
+    // 1.模版的编译 v-*** {{}}
+    // 2.数据劫持 (Object.defineProperty get/set观察数据变化)
+    // 3.watcher 观察者
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            messages:[1,2,3],
+            names:{
+                text:00000
+            }
+        }
+    })
+</script>
+</body>
+</html>
