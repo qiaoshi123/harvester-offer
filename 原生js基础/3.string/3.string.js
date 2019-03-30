@@ -148,38 +148,5 @@ console.log(str.split('=')) //["qwer"]
 console.log(str.split(""));//[ 'q', 'w', 'e', 'r' ]
 console.log('------------------------------')
 
-function get(str,t) {
-    let ary = str.split('abc');
-    let n  = ary.length - 1;
-    let iAry = [];
-    ary.reduce((prev,next,i,)=>{
-        if(i ==0){
-            iAry.push(prev+next.length);
-            return prev + next.length;
-        }
-        if(i == ary.length-1){
-            return;
-        }
-        iAry.push( prev+t.length+next.length);
-        return prev+t.length+next.length;
-
-    },0)
-    return {n,iAry}
-}
 
 
-function get(str,t) {
-    let reg = new RegExp(t,'g');
-    let i = 0;
-    let iAry = [];
-    str.replace(reg,function (...args) {
-        i++;
-        iAry.push(args[1])
-    })
-
-
-return {i,iAry}
-}
-
-var a = 'abcaaaaaabcabcabcabbbabcb'
-console.log(get(a, 'abc'));
