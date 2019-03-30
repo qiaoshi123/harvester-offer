@@ -160,3 +160,24 @@ Math.ceil(Math.random()*13)//1-13
 Math.round(Math.random()*13)//0-13
 
 
+console.log('-----------------')
+function insert(ary,n) {
+    if(ary.length == 1){
+        if(ary[0]>n){
+            return [n,ary[0]]
+        }else{
+            return [ary[0],n]
+        }
+    }
+    let m = Math.ceil(ary.length/2);
+    let l = ary.slice(0,m)
+    let r = ary.slice(m);
+    if(l[l.length-1]>n){
+        return insert(l,n).concat(r)
+    }else{
+        return l.concat(insert(r,n))
+    }
+
+}
+
+console.log(insert([1, 3, 5], 0));

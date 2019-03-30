@@ -326,60 +326,76 @@ console.log(ary);
 
 console.log('-----------------------')
 
-function permute(input) {
-    var permArr = [],
-        usedChars = [];
-
-    function main(input) {
-        var i, ch;
-        for (i = 0; i < input.length; i++) {
-            ch = input.splice(i, 1)[0];
-            usedChars.push(ch);
-            if (input.length == 0) {
-                permArr.push(usedChars.slice());
-
-            }
-            main(input);
-            input.splice(i, 0, ch);
-            usedChars.pop();
-        }
-        return permArr
-    }
-
-    return main(input);
-}
 
 
 // console.log(permute([1, 2, 3]));
 //
-const anagrams = str => {
-    if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
-    return str.split('').reduce((acc, letter, i) =>
-        acc.concat(anagrams(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)), []);
-};
-console.log(anagrams('1234'));
+// const anagrams = str => {
+//     if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
+//     return str.split('').reduce((acc, letter, i) =>
+//         acc.concat(anagrams(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)), []);
+// };
+// console.log(anagrams('1234'));
 
 
-function permute(arr) {
-    if(arr.length <= 2){
-        if(arr.length == 2){
-            return [arr,[arr[1],arr[0]]];
+// function permute(arr) {
+//     if(arr.length <= 2){
+//         if(arr.length == 2){
+//             return [arr,[arr[1],arr[0]]];
+//         }else{
+//             return [arr];
+//         }
+//
+//     }
+//     return arr.reduce((prev,next,i)=>{
+//         let pool= permute(arr.slice(0,i).concat(arr.slice(i+1)));
+//         pool = pool.map(item=>{
+//             item.unshift(next);
+//             return item;
+//         });
+//         return prev.concat(pool)
+//     },[])
+// }
+// console.log(permute([ 1, 2, 3]));
+
+// [a,b,c]=>[abc,acb,bac,bca,cab,cba]
+function permute(ary){
+    if(ary.length <= 2){
+        if(ary.length == 2){
+            return [ary.join(''),ary.reverse().join("")]
         }else{
-            return [arr];
+            return [ary[0]]
         }
-
     }
-    return arr.reduce((prev,next,i)=>{
-        let pool= permute(arr.slice(0,i).concat(arr.slice(i+1)));
-        pool = pool.map(item=>{
-            item.unshift(next);
-            return item;
-        });
-        return prev.concat(pool)
-    },[])
+    let result = [];
+    ary.forEach((item,index)=>{
+        let all = permute(ary.slice(0,index).concat(ary.slice(index+1)));
+        all = all.map(val=>{
+            return item+val+'';
+        })
+        result = result.concat(all);
+    })
+    return result
 }
-console.log(permute([ 1, 2, 3]));
 
+console.log(permute(["a","b","c"]));
+function fn(a1,a2){
+    let o1 = {};
+    let result = []
+    for(let i = 0 ;i<a1.length;i++){
+        let key = JSON.stringify(a1[i]);
+        o1[key] = true;
+    }
+    for(let i = 0 ;i<a2.length;i++){
+        let key = JSON.stringify(a2[i])
+        if(o1[key]){
+            result.push(a2[i])
+        }
+    }
+    return result;
+}
+
+console.log(fn([{a: 11, b: 12}, {c: 21, d: 22,e:{a:1}}], [{a: 12, b: 11}, {c: 21, d: 22,e:{a:1}}]));
 
 
 

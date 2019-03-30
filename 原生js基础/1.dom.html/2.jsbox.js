@@ -41,7 +41,7 @@ console.log(ndBox2.scrollWidth);
 
 /**
  * 5.
- * 可是窗口
+ * 可视窗口
  * contentHeight + paddingHeight
  */
 console.log(ndBox2.clientHeight);
