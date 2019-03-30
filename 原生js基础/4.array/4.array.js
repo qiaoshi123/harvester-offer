@@ -350,14 +350,35 @@ function permute(input) {
 }
 
 
-console.log(permute([1, 2, 3]));
-
+// console.log(permute([1, 2, 3]));
+//
 const anagrams = str => {
     if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
     return str.split('').reduce((acc, letter, i) =>
         acc.concat(anagrams(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)), []);
 };
 console.log(anagrams('1234'));
+
+
+function permute(arr) {
+    if(arr.length <= 2){
+        if(arr.length == 2){
+            return [arr,[arr[1],arr[0]]];
+        }else{
+            return [arr];
+        }
+
+    }
+    return arr.reduce((prev,next,i)=>{
+        let pool= permute(arr.slice(0,i).concat(arr.slice(i+1)));
+        pool = pool.map(item=>{
+            item.unshift(next);
+            return item;
+        });
+        return prev.concat(pool)
+    },[])
+}
+console.log(permute([ 1, 2, 3]));
 
 
 
