@@ -1,3 +1,5 @@
+//发布订阅模式
+
 class EventEmitter {
     constructor(){
         this._events = {};
@@ -35,3 +37,12 @@ e.removeListener('失恋',cry);
 e.once('失恋',cry);
 e.emit('失恋','我');
 e.emit('失恋');
+
+
+//new EventEmitter() 相当于创建一个事件调度中心；
+//假设消息类型"die"
+//订阅者B 订阅个die消息，会订阅到调度中心。
+//发布者A 发布die消息到调度中心。
+//最后由调度中心一次通知订阅者。
+
+//从始到终，订阅者B 和 发布者A，都没有关联。
