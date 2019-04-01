@@ -119,9 +119,9 @@ function getCookie(name) { //获取指定名称的cookie值
     }
     return null;
 }
-function setCookie(name,value,domain,path,days){
+function setCookie(name,value,domain,path='/',days='7'){
     var time = new Date();
-    time = new Date(d.getTime() + (days * 24 * 3600 * 1000));
+    time = new Date(time.getTime() + (days * 24 * 3600 * 1000));
     document.cookie = name + "=" + value + ";path="+path+";domain=" + domain + ";expires=" + time;
 }
 // document.cookie = "a=231312;path=/;domain=.baidu.com;expires=Fri, 15 Mar 2019 06:55:34 GMT"
