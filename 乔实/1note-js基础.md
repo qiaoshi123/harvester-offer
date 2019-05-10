@@ -29,7 +29,7 @@ Number.prototype.isPrototypeOf(a) //false
 
 ## 类型转换
 
-```$javascript
+```$javascript 
 
 1.转换
 转布尔：null undefined "" 0 -0 NaN false,表示false；其他都是true
@@ -103,7 +103,8 @@ Number.prototype.isPrototypeOf(a) //false
     
     4.其中一方是否为 object 且另一方为 string、number,先将object转换成原始类型
     在进行比较
-    
+    var a = {}
+    a == "[object Object]" //true
     
 
 ```

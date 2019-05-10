@@ -135,7 +135,7 @@ let handler = {
         setler(target,property)
         //深度监听
         if(typeof target[property] =='object'){
-            return new Proxy(target[peoperty],handler)
+            new Proxy(target[peoperty],handler)
         }
         return  Reflect.get(target,property)
     },
@@ -176,6 +176,10 @@ let p = observer(a,function(t,v){
 ```
 
 回调函数缺点？如何解决？
+```$javascript
+
+
+
 
 1.回调地狱
 2.不能return 
@@ -205,7 +209,7 @@ async和await
 await 内部实现了 generator，其实 await 就是 generator 加上 Promise 的语法糖，
 且内部实现了自动执行 generator。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。
 
-
+```
 
 ## setTimeout setInterval requestAnimationFrame 
 ```$javascript
